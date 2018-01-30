@@ -1,0 +1,1 @@
+This is a Url shortening microservice which lets you get a short url for any url and lets youget back to that url using that short version of url.
