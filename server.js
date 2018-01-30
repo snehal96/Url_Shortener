@@ -30,18 +30,20 @@ var count =0;
 app.get('/new/*',function(req,res){
 	var url = req.url.slice(5);
 	// res.send(url);
-	Url.find({"url": url},function(err, docs){
-		if(err) throw err;
-		// console.log(docs);
-		if(docs.length===0){
-			console.log("Url absent");
-			create(url, res);
-		
-		}else{
-			console.log("Url present");
-			res.send(JSON.stringify({"original_url" : docs[0].url, "short_url" : docs[0].id}));
-		}
-	})
+	if(/http:\/\/www\.\w+\.com\/?/.test(url)) {
+		Url.find({"url": url},function(err, docs){
+			if(err) throw err;
+			// console.log(docs);
+			if(docs.length===0){
+				console.log("Url absent");
+				create(url, res);
+			
+			}else{
+				console.log("Url present");
+				res.send(JSON.stringify({"original_url" : docs[0].url, "short_url" : docs[0].id}));
+			}
+		})
+	}
 	// create(url);
 })
 
@@ -77,6 +79,9 @@ function create(url,res){
 		if (err) throw err;
 		// res.setHeader("Content-Type", "text/html");
  	// 	res.write("<p>Hello World</p>");
-		if(result) console.log(result);
+		if(result) {
+			console.log(result);
+			res.send(JSON.stringify({"original_url" : result.url, "short_url" : result.id}));
+		}
 	})
 }
