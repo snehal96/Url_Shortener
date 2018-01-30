@@ -30,19 +30,21 @@ var count =0;
 app.get('/new/*',function(req,res){
 	var url = req.url.slice(5);
 	// res.send(url);
-	if(/http:\/\/www\.\w+\.com\/?/.test(url)) {
+	if(/^https:/.test(url)) {
 		Url.find({"url": url},function(err, docs){
 			if(err) throw err;
 			// console.log(docs);
 			if(docs.length===0){
-				console.log("Url absent");
+				// console.log("Url absent");
 				create(url, res);
 			
 			}else{
-				console.log("Url present");
+				// console.log("Url present");
 				res.send(JSON.stringify({"original_url" : docs[0].url, "short_url" : docs[0].id}));
 			}
 		})
+	}else{
+		res.send("Worng Type of Url entered! Please Enter a correct URL"+"\r\n"+ "Correct format: https:www.address");
 	}
 	// create(url);
 })
