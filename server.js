@@ -6,8 +6,8 @@ var Url = require('./models/urls.js');
 var cors = require('cors');
 
 var app = express();
-var urls = 'mongodb://localhost:27017/fcc_challenges';
-
+var urls = 'mongodb://localhost:27017/fcc_challenges'|| 'mongodb://heroku_9wkrtwcs:6t3htu6au35tkdn39mrvhcu15j@ds121268.mlab.com:21268/heroku_9wkrtwcs';
+// mongoose.connect(process.env.MONGO_URI);
 mongoose.connect(urls);
 var db = mongoose.connection;
 
